@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorios</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="panel-body">
+
+    <div class="registro-page">
+
+        <div class="registro-header">
+            <div>
+                <h1>Laboratorios</h1>
+                <p>Registro de laboratorios de la Unidad Educativa Hispano América</p>
+            </div>
+
+            <a href="/inicio" class="btn-volver">Regresar al inicio</a>
+        </div>
+
+        <div class="card-formulario">
+            <h2>Nuevo Laboratorio</h2>
+
+            <form action="/laboratorios/guardar" method="POST" class="form-registro">
+
+                <div class="campo">
+                    <label>Nombre del laboratorio</label>
+                    <input 
+                        type="text" 
+                        name="nombrelab" 
+                        placeholder="Ej: Diseño web" 
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label>Encargado</label>
+                    <input 
+                        type="text" 
+                        name="encargado" 
+                        placeholder="Ej: Lic. Natasha Vayas" 
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label>Número de laboratorio</label>
+                    <input 
+                        type="text" 
+                        name="numerodelab" 
+                        placeholder="Ej: 1" 
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label>Número de computadoras</label>
+                    <input 
+                        type="text" 
+                        name="numerodecom" 
+                        placeholder="Ej: 32" 
+                        required
+                    >
+                </div>
+
+                <div class="campo boton-area">
+                    <button type="submit" class="btn-guardar">
+                        Guardar Laboratorio
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card-tabla">
+            <h2>Lista de Laboratorios</h2>
+
+            <table class="tabla-registro">
+                <thead>
+                    <tr>
+                        <th>Nombre del laboratorio</th>
+                        <th>Encargado</th>
+                        <th>N° Laboratorio</th>
+                        <th>N° Computadoras</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% laboratorios.forEach(lab => { %>
+                        <tr>
+                            <td><%= lab.nombrelab %></td>
+                            <td><%= lab.encargado %></td>
+                            <td><%= lab.numerodelab %></td>
+                            <td><%= lab.numerodecom %></td>
+                            <td>
+                                <a 
+                                    href="/laboratorios/eliminar/<%= lab.numerodelab %>" 
+                                    class="btn-eliminar"
+                                    onclick="return confirm('¿Está seguro que desea eliminar este laboratorio?');">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

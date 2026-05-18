@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Usuario</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-body">
+
+    <div class="login-card">
+        <h1>Registrar Usuario</h1>
+        <h2>Crear una nueva cuenta para el sistema</h2>
+
+        <form action="/registro-usuario/guardar" method="POST">
+
+            <label>Nuevo usuario</label>
+            <input 
+                type="text" 
+                name="usuario" 
+                placeholder="Ingrese un nombre de usuario" 
+                required
+            >
+
+            <label>Contraseña</label>
+            <input 
+                type="password" 
+                name="contraseña" 
+                placeholder="Ingrese una contraseña" 
+                required
+            >
+
+            <button type="submit">Guardar usuario</button>
+
+            <a href="/" class="link-registro">Volver al inicio de sesión</a>
+
+        </form>
+    </div>
+
+</body>
+</html>

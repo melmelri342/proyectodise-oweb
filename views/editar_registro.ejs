@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Registro</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="panel-body">
+
+    <div class="registro-page">
+
+        <div class="registro-header">
+            <div>
+                <h1>Editar Registro</h1>
+                <p>Modificación de información del equipo registrado</p>
+            </div>
+
+            <a href="/registro" class="btn-volver">Regresar a registros</a>
+        </div>
+
+        <div class="card-formulario">
+            <h2>Datos del equipo</h2>
+
+            <form action="/registro/actualizar/<%= registro.codigo %>" method="POST" class="form-registro">
+
+                <div class="campo">
+                    <label>Código</label>
+                    <input type="text" name="codigo" value="<%= registro.codigo %>" required>
+                </div>
+
+                <div class="campo">
+                    <label>Marca</label>
+                    <input type="text" name="marca" value="<%= registro.marca %>" required>
+                </div>
+
+                <div class="campo">
+                    <label>Laboratorio</label>
+                    <input type="text" name="laboratorio" value="<%= registro.laboratorio %>" required>
+                </div>
+
+                <div class="campo">
+                    <label>Estado</label>
+                    <input type="text" name="estado" value="<%= registro.estado %>" required>
+                </div>
+
+                <div class="campo">
+                    <label>Fecha</label>
+                    <input type="date" name="fecha" value="<%= registro.fecha %>" required>
+                </div>
+
+                <div class="campo boton-area">
+                    <button type="submit" class="btn-guardar">Actualizar Registro</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

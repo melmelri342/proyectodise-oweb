@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Movimiento de Equipos</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="panel-body">
+
+    <div class="registro-page">
+
+        <div class="registro-header">
+            <div>
+                <h1>Movimiento de Equipos</h1>
+                <p>Registro de traslados, préstamos y cambios de estado</p>
+            </div>
+
+            <a href="/inicio" class="btn-volver">Regresar al inicio</a>
+        </div>
+
+        <div class="card-formulario">
+            <h2>Nuevo Movimiento</h2>
+
+            <form action="/movimiento/guardar" method="POST" class="form-registro" id="formMovimiento">
+
+                <div class="campo">
+                    <label>Código del equipo</label>
+
+                    <div class="codigo-verificar">
+                        <input 
+                            type="text" 
+                            name="codigo" 
+                            id="codigo"
+                            placeholder="Ej: PC-01" 
+                            required
+                        >
+
+                        <button type="button" class="btn-verificar" onclick="verificarEquipoMovimiento()">
+                            Verificar
+                        </button>
+                    </div>
+
+                    <p id="mensajeVerificacion" class="mensaje-verificacion"></p>
+                </div>
+
+                <div class="campo">
+                    <label>Tipo de movimiento</label>
+                    <select name="tipomv" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="Traslado">Traslado</option>
+                        <option value="Préstamo">Préstamo</option>
+                        <option value="Revisión">Revisión</option>
+                        <option value="Cambio de laboratorio">Cambio de laboratorio</option>
+                        <option value="Salida temporal">Salida temporal</option>
+                        <option value="Asignación">Asignación</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label>Responsable</label>
+                    <input 
+                        type="text" 
+                        name="responsable" 
+                        placeholder="Ej: Edison Quispe" 
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label>Fecha</label>
+                    <input type="date" name="fecha" required>
+                </div>
+
+                <div class="campo">
+                    <label>Estado</label>
+                    <input 
+                        type="text" 
+                        name="estado" 
+                        placeholder="Ej: Completado, Pendiente, En proceso" 
+                        required
+                    >
+                </div>
+
+                <div class="campo boton-area">
+                    <button type="submit" class="btn-guardar" id="btnGuardar" disabled>
+                        Guardar Movimiento
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card-tabla">
+            <h2>Historial de Movimientos</h2>
+
+            <table class="tabla-registro">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Tipo</th>
+                        <th>Responsable</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% movimiento.forEach(item => { %>
+                        <tr>
+                            <td><%= item.codigo %></td>
+                            <td><%= item.tipomv %></td>
+                            <td><%= item.responsable %></td>
+                            <td><%= item.fecha %></td>
+                            <td><span class="estado"><%= item.estado %></span></td>
+                            <td>
+                                <a 
+                                    href="/movimiento/eliminar/<%= item.codigo %>" 
+                                    class="btn-eliminar"
+                                    onclick="return confirm('¿Está seguro que desea eliminar este movimiento?');">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        function verificarEquipoMovimiento() {
+            const codigo = document.getElementById('codigo').value.trim();
+            const mensaje = document.getElementById('mensajeVerificacion');
+            const botonGuardar = document.getElementById('btnGuardar');
+
+            if (codigo === '') {
+                mensaje.textContent = 'Ingrese un código para verificar.';
+                mensaje.className = 'mensaje-verificacion error';
+                botonGuardar.disabled = true;
+                return;
+            }
+
+            fetch('/movimiento/verificar/' + codigo)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.existe) {
+                        mensaje.textContent = 'Su equipo está registrado, puede continuar.';
+                        mensaje.className = 'mensaje-verificacion correcto';
+                        botonGuardar.disabled = false;
+                    } else {
+                        mensaje.textContent = 'El equipo no está registrado. No puede continuar.';
+                        mensaje.className = 'mensaje-verificacion error';
+                        botonGuardar.disabled = true;
+                    }
+                })
+                .catch(error => {
+                    mensaje.textContent = 'Error al verificar el equipo.';
+                    mensaje.className = 'mensaje-verificacion error';
+                    botonGuardar.disabled = true;
+                });
+        }
+    </script>
+
+</body>
+</html>

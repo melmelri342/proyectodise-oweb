@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Equipos</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="inicio-body">
+
+    <header class="top-navbar">
+        <div class="brand">
+            <img src="/chido%20escudo.gif" alt="Escudo Unidad Educativa Hispano América" class="brand-img">
+
+            <div>
+                <h2>Unidad Educativa</h2>
+                <h1>Hispano América</h1>
+            </div>
+        </div>
+
+        <a href="/inicio" class="btn-salir">Regresar al inicio</a>
+    </header>
+
+    <section class="hero-registro">
+        <div class="hero-registro-text">
+            <h1>Registro de Equipos</h1>
+            <p>Control general de equipos registrados en los laboratorios de la institución.</p>
+        </div>
+    </section>
+
+    <div class="registro-page registro-ajustado">
+
+        <div class="card-formulario">
+            <h2>Nuevo Registro</h2>
+
+            <form action="/registro/guardar" method="POST" class="form-registro">
+
+                <div class="campo">
+                    <label>Código</label>
+                    <input type="text" name="codigo" placeholder="Ej: PC-01" required>
+                </div>
+
+                <div class="campo">
+                    <label>Marca</label>
+                    <input type="text" name="marca" placeholder="Ej: HP" required>
+                </div>
+
+                <div class="campo">
+                    <label>Laboratorio</label>
+                    <input type="text" name="laboratorio" placeholder="Ej: Laboratorio 1" required>
+                </div>
+
+                <div class="campo">
+                    <label>Estado</label>
+                    <input type="text" name="estado" placeholder="Ej: Bueno" required>
+                </div>
+
+                <div class="campo">
+                    <label>Fecha</label>
+                    <input type="date" name="fecha" required>
+                </div>
+
+                <div class="campo boton-area">
+                    <button type="submit" class="btn-guardar">Guardar Registro</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card-tabla">
+            <h2>Lista de Equipos Registrados</h2>
+
+            <table class="tabla-registro">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Marca</th>
+                        <th>Laboratorio</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% registros.forEach(reg => { %>
+                        <tr>
+                            <td><%= reg.codigo %></td>
+                            <td><%= reg.marca %></td>
+                            <td><%= reg.laboratorio %></td>
+                            <td><span class="estado"><%= reg.estado %></span></td>
+                            <td><%= reg.fecha %></td>
+                            <td>
+                                <a href="/registro/editar/<%= reg.codigo %>" class="btn-editar">
+                                    Editar
+                                </a>
+
+                                <a href="/registro/eliminar/<%= reg.codigo %>" 
+                                   class="btn-eliminar"
+                                   onclick="return confirm('¿Está seguro que desea eliminar este registro de equipo?');">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

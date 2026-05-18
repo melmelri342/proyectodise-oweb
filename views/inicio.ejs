@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Principal</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="inicio-body">
+
+    <header class="top-navbar">
+    <div class="brand">
+        <img src="/chido%20escudo.gif" alt="Escudo Unidad Educativa Hispano América" class="brand-img">
+
+        <div>
+            <h2>Unidad Educativa</h2>
+            <h1>Hispano América</h1>
+        </div>
+    </div>
+
+    <a href="/" class="btn-salir">Cerrar sesión</a>
+</header>
+
+    <section class="hero-panel">
+        <div class="hero-text">
+            <p class="bienvenida">Bienvenido, <%= usuario %></p>
+            <h1>Sistema de Pasantías</h1>
+            <h2>Gestión de equipos, laboratorios, mantenimientos y movimientos</h2>
+            <p>
+                Plataforma desarrollada para apoyar el control técnico de los laboratorios
+                de la Unidad Educativa Hispano América.
+            </p>
+        </div>
+    </section>
+
+    <main class="modulos-container">
+        <div class="modulo-card card-principal">
+            <h3>Registro</h3>
+            <p>Registra los equipos informáticos de la institución.</p>
+            <a href="/registro">Ingresar</a>
+        </div>
+
+        <div class="modulo-card">
+            <h3>Laboratorios</h3>
+            <p>Administra laboratorios, encargados y número de equipos.</p>
+            <a href="/laboratorios">Ingresar</a>
+        </div>
+
+        <div class="modulo-card">
+            <h3>Mantenimiento</h3>
+            <p>Guarda revisiones, reparaciones y observaciones técnicas.</p>
+            <a href="/mantenimiento">Ingresar</a>
+        </div>
+
+        <div class="modulo-card">
+            <h3>Movimiento</h3>
+            <p>Controla traslados, préstamos o cambios de estado de equipos.</p>
+            <a href="/movimiento">Ingresar</a>
+        </div>
+    </main>
+
+    <footer class="footer-institucional">
+        <div class="footer-info">
+            <h3>Unidad Educativa Hispano América</h3>
+            <p><strong>Dirección:</strong> Av. Bolivariana, 180201 Ambato</p>
+            <p><strong>Teléfono:</strong> (03) 256-7889</p>
+        </div>
+
+        <div class="footer-redes">
+            <h3>Síguenos en redes</h3>
+
+            <div>
+                <a href="https://www.facebook.com/p/Hispano-Am%C3%A9rica-100057580804711/" target="_blank">Facebook</a>
+                <a href="https://uehispanoamerica.gescolar.ec/" target="_blank">Sitio web</a>
+                <a href="https://www.waze.com/es/live-map/directions/unidad-educativa-hispano-america-ambato?to=place.w.184420092.1844069844.288619" target="_blank">Ubicación</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

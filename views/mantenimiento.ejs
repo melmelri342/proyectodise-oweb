@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento de Equipos</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="panel-body">
+
+    <div class="registro-page">
+
+        <div class="registro-header">
+            <div>
+                <h1>Mantenimiento de Equipos</h1>
+                <p>Registro de revisiones y reparaciones realizadas</p>
+            </div>
+
+            <a href="/inicio" class="btn-volver">Regresar al inicio</a>
+        </div>
+
+        <div class="card-formulario">
+            <h2>Nuevo Mantenimiento</h2>
+
+            <form action="/mantenimiento/guardar" method="POST" class="form-registro" id="formMantenimiento">
+
+                <div class="campo">
+                    <label>Código del equipo</label>
+                    <div class="codigo-verificar">
+                        <input 
+                            type="text" 
+                            name="codigo" 
+                            id="codigo"
+                            placeholder="Ej: PC-01" 
+                            required
+                        >
+
+                        <button type="button" class="btn-verificar" onclick="verificarEquipo()">
+                            Verificar
+                        </button>
+                    </div>
+
+                    <p id="mensajeVerificacion" class="mensaje-verificacion"></p>
+                </div>
+
+                <div class="campo">
+                    <label>Fecha</label>
+                    <input type="date" name="fecha" required>
+                </div>
+
+                <div class="campo">
+                    <label>Encargado</label>
+                    <input 
+                        type="text" 
+                        name="encargado" 
+                        placeholder="Ej: Edison Quispe" 
+                        required
+                    >
+                </div>
+
+                <div class="campo campo-grande">
+                    <label>Descripción</label>
+                    <textarea 
+                        name="descripcion" 
+                        placeholder="Describa el mantenimiento realizado"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="campo boton-area">
+                    <button type="submit" class="btn-guardar" id="btnGuardar" disabled>
+                        Guardar Mantenimiento
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card-tabla">
+            <h2>Historial de Mantenimiento</h2>
+
+            <table class="tabla-registro">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Fecha</th>
+                        <th>Encargado</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% mantenimiento.forEach(item => { %>
+                        <tr>
+                            <td><%= item.codigo %></td>
+                            <td><%= item.fecha %></td>
+                            <td><%= item.encargado %></td>
+                            <td><%= item.descripcion %></td>
+                            <td>
+                                <a 
+                                    href="/mantenimiento/eliminar/<%= item.codigo %>" 
+                                    class="btn-eliminar"
+                                    onclick="return confirm('¿Está seguro que desea eliminar este mantenimiento?');">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        function verificarEquipo() {
+            const codigo = document.getElementById('codigo').value.trim();
+            const mensaje = document.getElementById('mensajeVerificacion');
+            const botonGuardar = document.getElementById('btnGuardar');
+
+            if (codigo === '') {
+                mensaje.textContent = 'Ingrese un código para verificar.';
+                mensaje.className = 'mensaje-verificacion error';
+                botonGuardar.disabled = true;
+                return;
+            }
+
+            fetch('/mantenimiento/verificar/' + codigo)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.existe) {
+                        mensaje.textContent = 'Su equipo está registrado, puede continuar.';
+                        mensaje.className = 'mensaje-verificacion correcto';
+                        botonGuardar.disabled = false;
+                    } else {
+                        mensaje.textContent = 'El equipo no está registrado. No puede continuar.';
+                        mensaje.className = 'mensaje-verificacion error';
+                        botonGuardar.disabled = true;
+                    }
+                })
+                .catch(error => {
+                    mensaje.textContent = 'Error al verificar el equipo.';
+                    mensaje.className = 'mensaje-verificacion error';
+                    botonGuardar.disabled = true;
+                });
+        }
+    </script>
+
+</body>
+</html>
