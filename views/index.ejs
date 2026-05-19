@@ -1,19 +1,28 @@
-{
-  "name": "paginapro",
-  "version": "1.0.0",
-  "description": "Sistema de pasantias con Node.js, Express y MySQL",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "body-parser": "^2.2.2",
-    "ejs": "^5.0.2",
-    "express": "^5.2.1",
-    "mysql2": "^3.22.3"
-  }
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Sistema Hispano</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-body">
+
+    <div class="login-card">
+        <h1>Sistema de Pasantías</h1>
+        <h2>Unidad Educativa Hispano América</h2>
+
+        <form action="/login" method="POST">
+            <label>Usuario</label>
+            <input type="text" name="usuario" placeholder="Ingrese su usuario" required>
+
+            <label>Contraseña</label>
+            <input type="password" name="contraseña" placeholder="Ingrese su contraseña" required>
+
+            <button type="submit">Ingresar</button>
+
+            <a href="/registro-usuario" class="link-registro">Registrar usuario</a>
+        </form>
+    </div>
+
+</body>
+</html>
